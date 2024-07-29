@@ -1,0 +1,36 @@
+directive @isAuthenticated on FIELD_DEFINITION
+directive @isRefreshAuthenticated on FIELD_DEFINITION
+
+type Usr {
+  id: ID!
+  name: String!
+}
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+  password: String!
+}
+
+type Query {
+  usr(name: String!): Usr @isAuthenticated
+  user(email: String!): User
+}
+
+input SignUp {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input SignIn {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  signUp(input: SignUp!): User
+  signIn(input: SignIn!): User
+  validate: User
+}
